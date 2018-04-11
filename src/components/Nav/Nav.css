@@ -1,0 +1,27 @@
+.title {
+  font-size: 30px;
+  margin: 10px 0;
+}
+
+.form {
+  width: 500px;
+  margin: 20px auto;
+  box-shadow: 0 5px 8px rgba(0, 0, 0, 0.7);
+}
+
+.form input[type="text"] {
+  padding-right: 50px;
+}
+
+.form button {
+  margin-left: -50px;
+  width: 50px;
+  height: 38px;
+  border: none;
+  background: none;
+}
+
+.form button:hover {
+  cursor: pointer;
+}
+
