@@ -27,7 +27,7 @@ const Profile = () => {
   if(auth.currentUser) {
     user.name = auth.currentUser.displayName;
     user.email = auth.currentUser.email;
-    user.photo = auth.currentUser.photoUrl;
+    user.photo = auth.currentUser.photoURL;
     user.favorites = [
       {
         header: "Fritata",
@@ -54,7 +54,11 @@ const Profile = () => {
     ];
   }
 
-  return (
+  const signOut = () => {
+    auth.signOut();
+  }
+
+  return (    
     <React.Fragment>
       <Container style={containerStyle}>
         <Image className="userImage" centered src={user.photo} alt="userImage" />
@@ -63,6 +67,12 @@ const Profile = () => {
           <Header.Subheader>
             {user.email}
           </Header.Subheader>
+          <Button 
+            onClick={signOut} 
+            basic 
+            style={{ margin: "20px auto"}}
+            color="red"
+          >Sign Out</Button>
         </Header>
         <Header style={{ marginBottom:"30px", textAlign: "center"}} as="h2">Favorites</Header>
         <Card.Group>

@@ -3,11 +3,14 @@ import './Nav.css';
 
 import { Link } from 'react-router-dom';
 import * as routes from '../../constants/routes';
+import { authGoogle, authFacebook } from '../../constants/auth';
 
 import { 
   Sidebar, 
   Segment, 
   Button, 
+  Header,
+  Modal,
   Menu, 
   Image, 
   Icon,
@@ -20,7 +23,12 @@ class Nav extends Component {
   state = { 
     visible: false,
     searchQuery: "",
+    modalOpen: false,
   }
+
+  handleOpen = () => this.setState({ modalOpen: true })
+
+  handleClose = () => this.setState({ modalOpen: false })
 
   toggleVisibility = () => this.setState({ visible: !this.state.visible })
 
@@ -34,6 +42,14 @@ class Nav extends Component {
   formSubmit = e => {
     
     e.preventDefault();
+  }
+
+  authFacebook = () => {
+    authFacebook();
+  }
+
+  authGoogle = () => {
+    authGoogle();
   }
 
   render() {
@@ -60,7 +76,8 @@ class Nav extends Component {
             <Button 
               color="yellow" 
               style={{margin: "5px"}}
-              icon="user circle" />
+              icon="user circle"
+              onClick={this.handleOpen} />
           </Menu.Menu>
         </Menu>
         <Sidebar.Pushable style={{background: "#00b950", margin:"5px"}} as={Segment}>
@@ -104,6 +121,29 @@ class Nav extends Component {
             </Segment>
           </Sidebar.Pusher>
         </Sidebar.Pushable>
+        <Modal 
+          open={this.state.modalOpen}
+          onClose={this.handleClose}
+          className="loginModal"
+        >
+          <Modal.Header>SIGN IN</Modal.Header>
+          <Modal.Content image>
+            <Image wrapped size='medium' src={logo} />
+            <Modal.Description>
+              <p>Sign in and get access to the meal planner(currently in the beta stage) and the ability to save cooking recipes to favorites.</p>
+              <Header
+                onClick={this.authGoogle}
+              >
+                <Icon color="red" name="google plus"/> Google Plus
+              </Header>
+              <Header 
+                onClick={this.authFacebook}
+              >
+                <Icon color="blue" name="facebook" /> Facebook
+              </Header>
+            </Modal.Description>
+          </Modal.Content>
+        </Modal>
       </div>
     )
   }

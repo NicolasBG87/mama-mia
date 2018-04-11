@@ -25,3 +25,10 @@
   cursor: pointer;
 }
 
+.loginModal {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 50px !important;
+}
+
