@@ -1,0 +1,13 @@
+.advert {
+  text-align: center;
+  box-shadow: 0 5px 8px rgba(0, 0, 0, 0.7);
+  border-radius: 5px;
+}
+
+.worry {
+  width: 150px;
+  height: 150px;
+  border: 10px solid #ffbd39;
+  border-radius: 50%;
+  box-shadow: 0 5px 8px rgba(0, 0, 0, 0.7);
+}
