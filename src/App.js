@@ -6,6 +6,9 @@ import {
   Switch
 } from 'react-router-dom';
 import * as routes from './constants/routes';
+import { authenticated } from './constants/actions';
+import { auth } from './constants/firebase';
+import { connect } from 'react-redux';
 
 import Nav from './components/Nav/Nav';
 import Home from './components/Home/Home';
@@ -15,6 +18,20 @@ import Recipes from './components/Recipes/Recipes';
 import Profile from './components/Profile/Profile';
 
 class App extends Component {
+  state = {
+    authenticated: null,
+  }
+
+  componentDidMount() {
+    auth.onAuthStateChanged(authenticated => {
+      authenticated
+        ? this.setState(() => ({ authenticated }))
+        : this.setState(() => ({ authenticated: null })
+      );
+    this.props.authenticated(authenticated);
+    });
+  }
+
   render() {
     return (
       <BrowserRouter>
@@ -33,4 +50,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect(null, { authenticated })(App);
