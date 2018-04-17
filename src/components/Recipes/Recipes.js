@@ -62,7 +62,6 @@ class Recipes extends React.Component {
                   onClick={() => this.openRecipe(result.recipe.uri)}>
                   Open
                 </Button>
-                {console.log(result.recipe.uri)}
               </div>
             </Card.Content>
           </Card.Content>

@@ -33,7 +33,6 @@ class Recipe extends Component {
     })
       .then(res => res.json()
         .then(content => {
-          console.log(content);
           this.setState({
             recipe: content[0]
           })

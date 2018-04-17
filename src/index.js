@@ -11,8 +11,6 @@ import rootReducer from './constants/reducer';
 
 const store = createStore(rootReducer);
 
-store.subscribe(() => console.log(store.getState()));
-
 const app = (
   <Provider store={store}>
     <App />
