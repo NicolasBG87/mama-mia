@@ -1,5 +1,5 @@
-export const HOME = "/";
-export const NOT_FOUND = "/*";
-export const PROFILE = "/profile";
-export const RECIPES = "/recipes/*";
-export const RECIPE = "/recipe*";
+export const HOME = "/mama-mia/";
+export const NOT_FOUND = "/mama-mia/*";
+export const PROFILE = "/mama-mia/profile";
+export const RECIPES = "/mama-mia/recipes/*";
+export const RECIPE = "/mama-mia/recipe*";
