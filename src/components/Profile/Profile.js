@@ -8,7 +8,6 @@ import {
   Container,
   Header,
   Button,
-  Card,
 } from 'semantic-ui-react';
 import userPlaceholder from '../../assets/userPlaceholder.png';
 

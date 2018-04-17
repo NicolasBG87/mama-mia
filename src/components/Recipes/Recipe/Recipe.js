@@ -24,15 +24,20 @@ class Recipe extends Component {
   }
 
   componentDidMount() {
-    const id = window.location.pathname.substring(7);
+    const id = window.location.pathname.substring(16).replace(/#/g, "%");
 
-    fetch(`https://food2fork.com/api/get?key=efc7ae89e9dde4cdfa065e0cf5685a3c&rId=${id}`)
+    fetch(`https://api.edamam.com/search?r=${id}&app_id=a0695591&app_key=0f739d2fde28a49c615e17fec8dc1129`, {
+      headers: {
+        "Access-Control-Allow-Origin": "*"
+      }
+    })
       .then(res => res.json()
         .then(content => {
+          console.log(content);
           this.setState({
-            recipe: content.recipe
+            recipe: content[0]
           })
-          fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&type=video&key=AIzaSyDVqmCaJWQS2CFQUxrCjd6SyQVzezDRzDk&q=How to make ${content.recipe.title}`)
+          fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&type=video&key=AIzaSyDVqmCaJWQS2CFQUxrCjd6SyQVzezDRzDk&q=How to make ${content[0].label}`)
             .then(res => res.json()
               .then(content => {
                 this.setState({
@@ -51,15 +56,15 @@ class Recipe extends Component {
         <div>
           <Header 
             as="h1">
-            {this.state.recipe.title}
+            {this.state.recipe.label}
           </Header>
           <Header.Subheader 
             as="h3">
-            Author: {this.state.recipe.publisher}
+            Author: {this.state.recipe.source}
           </Header.Subheader>
           <Image 
-            src={this.state.recipe.image_url}
-            alt={this.state.recipe.recipe_id} 
+            src={this.state.recipe.image}
+            alt={this.state.recipe.label} 
             fluid
           />
           <Header 
@@ -69,7 +74,7 @@ class Recipe extends Component {
           <ul>
             {this.state.recipe.ingredients.map((ing, index) => {
               return (
-                <li key={index}>{ing}</li>
+                <li key={index}>{ing.text}</li>
               );
             })}
           </ul>

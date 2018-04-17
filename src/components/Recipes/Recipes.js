@@ -27,10 +27,14 @@ class Recipes extends React.Component {
     const currPath = window.location.pathname;
     let searchQuery = currPath.substring(9).replace(/%/g, "").replace(/20/g, "");
 
-    fetch(`https://food2fork.com/api/search?key=efc7ae89e9dde4cdfa065e0cf5685a3c&q=${searchQuery}&count=10&sort=r`)
+    fetch(`https://api.edamam.com/search?q=${searchQuery}&app_id=a0695591&app_key=0f739d2fde28a49c615e17fec8dc1129`, {
+      headers: {
+        "Access-Control-Allow-Origin": "*"
+      }
+    })
       .then(res => res.json()
         .then(data => {
-          const results = data.recipes;
+          const results = data.hits;
           this.setState({ results });
         }))
       .catch(err => console.log(err));
@@ -48,16 +52,17 @@ class Recipes extends React.Component {
         return (
         <Card centered key={index}>
           <Card.Content>
-            <Image floated="right" size="medium" src={result.image_url} alt={index} />
-            <Card.Header>{result.title}</Card.Header>
-            <Card.Meta>{result.publisher}</Card.Meta>
+            <Image floated="right" size="medium" src={result.recipe.image} alt={index} />
+            <Card.Header>{result.recipe.label}</Card.Header>
+            <Card.Meta>{Math.round(result.recipe.calories)} Calories</Card.Meta>
             <Card.Content extra>
               <div className="ui two buttons">
                 <Button 
                   color="green"
-                  onClick={() => this.openRecipe(result.recipe_id)}>
+                  onClick={() => this.openRecipe(result.recipe.uri)}>
                   Open
                 </Button>
+                {console.log(result.recipe.uri)}
               </div>
             </Card.Content>
           </Card.Content>
