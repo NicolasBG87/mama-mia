@@ -26,45 +26,20 @@ class Profile extends React.Component {
     name: "",
     email: "",
     photo: "",
-    favorites: [],
   }
 
   componentWillMount() {
-    // fetch("https://mama-mia-2018.firebaseio.com/users.json")
-    //   .then(res => res.json().then(data => console.log(data)))
-    //   .catch(err => console.log(err));
-  
     if(auth.currentUser) {
       this.setState({
         name: auth.currentUser.displayName,
         email: auth.currentUser.email,
         photo: auth.currentUser.photoURL,
-        favorites: [
-          {
-            header: "Fritata",
-            author: "James Oliver"
-          },
-          {
-            header: "Chicken",
-            author: "John Dickens"
-          },
-          {
-            header: "Eggs",
-            author: "Jenny Michaelson"
-          },
-        ],
       });
     } else {
       this.setState({
         name: "Guest",
         email: "example@example.com",
         photo: userPlaceholder,
-        favorites: [
-          {
-            header: "You must be logged in",
-            author: "to add favorites"
-          }
-        ],
       });
     }
   }
@@ -90,26 +65,6 @@ class Profile extends React.Component {
               color="red"
             >Sign Out</Button>
           </Header>
-          <Header style={{ marginBottom:"30px", textAlign: "center"}} as="h2">Favorites</Header>
-          <Card.Group>
-            {this.state.favorites.map((favorite, index) => {
-              return (
-              <Card centered key={index}>
-                <Card.Content>
-                  <Image floated="right" size="mini" src={userPlaceholder} alt={index} />
-                  <Card.Header>{favorite.header}</Card.Header>
-                  <Card.Meta>{favorite.author}</Card.Meta>
-                  <Card.Content extra>
-                    <div className="ui two buttons">
-                      <Button basic color="green">Open</Button>
-                      <Button basic color="red">Delete</Button>
-                    </div>
-                  </Card.Content>
-                </Card.Content>
-              </Card>
-              );
-            })}
-          </Card.Group>
         </Container>
       </React.Fragment>
     );

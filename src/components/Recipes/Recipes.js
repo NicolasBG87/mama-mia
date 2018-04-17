@@ -27,7 +27,7 @@ class Recipes extends React.Component {
     const currPath = window.location.pathname;
     let searchQuery = currPath.substring(9).replace(/%/g, "").replace(/20/g, "");
 
-    fetch(`http://food2fork.com/api/search?key=efc7ae89e9dde4cdfa065e0cf5685a3c&q=${searchQuery}&count=10&sort=r`)
+    fetch(`https://food2fork.com/api/search?key=efc7ae89e9dde4cdfa065e0cf5685a3c&q=${searchQuery}&count=10&sort=r`)
       .then(res => res.json()
         .then(data => {
           const results = data.recipes;
@@ -37,7 +37,7 @@ class Recipes extends React.Component {
   }
 
   openRecipe = (id) => {
-    window.location.pathname = `/recipe${id}`;
+    window.location.pathname = `/mama-mia/recipe${id}`;
   }
 
   render() {

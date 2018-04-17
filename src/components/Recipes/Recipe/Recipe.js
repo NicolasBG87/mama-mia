@@ -26,7 +26,7 @@ class Recipe extends Component {
   componentDidMount() {
     const id = window.location.pathname.substring(7);
 
-    fetch(`http://food2fork.com/api/get?key=efc7ae89e9dde4cdfa065e0cf5685a3c&rId=${id}`)
+    fetch(`https://food2fork.com/api/get?key=efc7ae89e9dde4cdfa065e0cf5685a3c&rId=${id}`)
       .then(res => res.json()
         .then(content => {
           this.setState({

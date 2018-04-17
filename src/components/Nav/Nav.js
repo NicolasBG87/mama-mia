@@ -53,7 +53,7 @@ class Nav extends Component {
   formSubmit = e => {
     e.preventDefault();
     let searchQuery = this.state.searchQuery;
-    window.location.pathname = "recipes/" + searchQuery;
+    window.location.pathname = "/mama-mia/recipes/" + searchQuery;
   }
 
   authFacebook = () => {
