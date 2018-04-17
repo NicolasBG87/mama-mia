@@ -16,6 +16,7 @@ import Footer from './components/Footer/Footer';
 import NotFound from './components/NotFound/NotFound';
 import Recipes from './components/Recipes/Recipes';
 import Profile from './components/Profile/Profile';
+import Recipe from './components/Recipes/Recipe/Recipe';
 
 class App extends Component {
   state = {
@@ -41,6 +42,8 @@ class App extends Component {
               <Route exact path={routes.HOME} component={() => <Home />} />
               <Route exact path={routes.RECIPES} component={() => <Recipes />} />
               <Route exact path={routes.PROFILE} component={() => <Profile />} />
+              <Route path={routes.RECIPE} 
+              component={() => <Recipe />} />
               <Route path={routes.NOT_FOUND} component={() => <NotFound />} />
             </Switch>
           <Footer />
