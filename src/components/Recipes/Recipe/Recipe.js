@@ -1,3 +1,8 @@
+// ADD BUTTON TO ADD TO FAVORITES
+// WRITE FAVORITES TO THE DATABASE
+// FETCH FROM THE DATABASE INTO PROFILE
+// REMOVE FAVORITES FROM THE PROFILE AND DATABASE
+
 import React, { Component } from 'react';
 
 import {
@@ -7,6 +12,8 @@ import {
   Loader,
   Embed,
 } from 'semantic-ui-react';
+
+import { recipe, yt } from '../../../constants/axios';
 
 const containerStyle = {
   width: "500px",
@@ -26,25 +33,18 @@ class Recipe extends Component {
   componentDidMount() {
     const id = window.location.pathname.substring(16).replace(/#/g, "%");
 
-    fetch(`https://api.edamam.com/search?r=${id}&app_id=a0695591&app_key=0f739d2fde28a49c615e17fec8dc1129`, {
-      headers: {
-        "Access-Control-Allow-Origin": "*"
-      }
-    })
-      .then(res => res.json()
-        .then(content => {
+    recipe.get(`search?r=${id}`)
+      .then(res => {
+        const recipe = res.data[0];
+        this.setState({ recipe });
+        yt.get(`search?q=How to make ${recipe.label}`)
+        .then(res => {
           this.setState({
-            recipe: content[0]
+            youtube: res.data.items[0]
           })
-          fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&type=video&key=AIzaSyDVqmCaJWQS2CFQUxrCjd6SyQVzezDRzDk&q=How to make ${content[0].label}`)
-            .then(res => res.json()
-              .then(content => {
-                this.setState({
-                  youtube: content.items[0]
-                })
-              }))
-              .catch(err => console.log(err));
-        }))
+        })
+        .catch(err => console.log(err));
+      })
       .catch(err => console.log(err));
   }
 
@@ -61,6 +61,7 @@ class Recipe extends Component {
             as="h3">
             Author: {this.state.recipe.source}
           </Header.Subheader>
+          <p>{Math.round(this.state.recipe.calories)} Calories</p>
           <Image 
             src={this.state.recipe.image}
             alt={this.state.recipe.label} 

@@ -8,6 +8,7 @@ import {
   Button,
   Loader,
 } from 'semantic-ui-react';
+import { recipe } from '../../constants/axios';
 
 const containerStyle = {
   width: "500px",
@@ -27,16 +28,11 @@ class Recipes extends React.Component {
     const currPath = window.location.pathname;
     let searchQuery = currPath.substring(9).replace(/%/g, "").replace(/20/g, "");
 
-    fetch(`https://api.edamam.com/search?q=${searchQuery}&app_id=a0695591&app_key=0f739d2fde28a49c615e17fec8dc1129`, {
-      headers: {
-        "Access-Control-Allow-Origin": "*"
-      }
-    })
-      .then(res => res.json()
-        .then(data => {
-          const results = data.hits;
-          this.setState({ results });
-        }))
+    recipe.get(`search?q=${searchQuery}`)
+      .then(res => {
+        const results = res.data.hits;
+        this.setState({ results });
+      })
       .catch(err => console.log(err));
   }
 
