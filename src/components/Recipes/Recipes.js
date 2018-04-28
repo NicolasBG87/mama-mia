@@ -8,7 +8,7 @@ import {
   Button,
   Loader,
 } from 'semantic-ui-react';
-import { recipe } from '../../constants/axios';
+import { recipes, recipe } from '../../constants/axios';
 
 const containerStyle = {
   width: "500px",
@@ -26,14 +26,14 @@ class Recipes extends React.Component {
   
   componentDidMount() {
     const currPath = window.location.pathname;
-    let searchQuery = currPath.substring(9).replace(/%/g, "").replace(/20/g, "");
+    let searchQuery = currPath.replace(/%/g, "").replace(/20/g, "").substring(18);
 
-    recipe.get(`search?q=${searchQuery}`)
+    recipes.get(`&q=${searchQuery}`)
       .then(res => {
-        const results = res.data.hits;
-        this.setState({ results });
+        let results = res.data.recipes;
+        this.setState({ results })
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log(err))
   }
 
   openRecipe = (id) => {
@@ -48,14 +48,13 @@ class Recipes extends React.Component {
         return (
         <Card centered key={index}>
           <Card.Content>
-            <Image floated="right" size="medium" src={result.recipe.image} alt={index} />
-            <Card.Header>{result.recipe.label}</Card.Header>
-            <Card.Meta>{Math.round(result.recipe.calories)} Calories</Card.Meta>
+            <Image floated="right" size="medium" src={result.image_url} alt={index} />
+            <Card.Header>{result.title}</Card.Header>
             <Card.Content extra>
               <div className="ui two buttons">
                 <Button 
                   color="green"
-                  onClick={() => this.openRecipe(result.recipe.uri)}>
+                  onClick={() => this.openRecipe(result.recipe_id)}>
                   Open
                 </Button>
               </div>

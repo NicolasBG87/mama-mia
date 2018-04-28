@@ -31,13 +31,13 @@ class Recipe extends Component {
   }
 
   componentDidMount() {
-    const id = window.location.pathname.substring(16).replace(/#/g, "%");
+    const id = window.location.pathname.substring(16);
 
-    recipe.get(`search?r=${id}`)
+    recipe.get(`&rId=${id}`)
       .then(res => {
-        const recipe = res.data[0];
+        const recipe = res.data.recipe;
         this.setState({ recipe });
-        yt.get(`search?q=How to make ${recipe.label}`)
+        yt.get(`search?q=How to make ${recipe.title}`)
         .then(res => {
           this.setState({
             youtube: res.data.items[0]
@@ -55,16 +55,15 @@ class Recipe extends Component {
         <div>
           <Header 
             as="h1">
-            {this.state.recipe.label}
+            {this.state.recipe.title}
           </Header>
           <Header.Subheader 
             as="h3">
-            Author: {this.state.recipe.source}
+            Author: {this.state.recipe.publisher}
           </Header.Subheader>
-          <p>{Math.round(this.state.recipe.calories)} Calories</p>
           <Image 
-            src={this.state.recipe.image}
-            alt={this.state.recipe.label} 
+            src={this.state.recipe.image_url}
+            alt={this.state.recipe.title} 
             fluid
           />
           <Header 
@@ -74,7 +73,7 @@ class Recipe extends Component {
           <ul>
             {this.state.recipe.ingredients.map((ing, index) => {
               return (
-                <li key={index}>{ing.text}</li>
+                <li key={index}>{ing}</li>
               );
             })}
           </ul>

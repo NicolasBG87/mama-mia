@@ -1,13 +1,19 @@
 import axios from 'axios';
 
-export const recipe = axios.create({
-  baseURL: 'https://api.edamam.com',
+export const recipes = axios.create({
+  baseURL: 'https://cors-anywhere.herokuapp.com/food2fork.com/api/search?',
   params: {
-    app_id: "a0695591",
-    app_key: "0f739d2fde28a49c615e17fec8dc1129",
-  },
-  withCredentials: true,
-  responseType: "json"
+    key: "efc7ae89e9dde4cdfa065e0cf5685a3c",
+    sort: "r",
+    count: "10",
+  }
+});
+
+export const recipe = axios.create({
+  baseURL: "https://cors-anywhere.herokuapp.com/food2fork.com/api/get?",
+  params: {
+    key: "efc7ae89e9dde4cdfa065e0cf5685a3c"
+  }
 });
 
 export const yt = axios.create({
